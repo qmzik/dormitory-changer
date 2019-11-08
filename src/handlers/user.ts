@@ -10,6 +10,7 @@ app.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
         await user.save();
         res.status(200).end();
     } catch (error) {
+
         next(error);
     }
 });

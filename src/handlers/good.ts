@@ -15,7 +15,7 @@ app.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
 app.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const goods: IGood[] = await Good.find({}, { _id: 0, __v: 0 }).lean();
+        const goods: IGood[] = await Good.find(req.query, { _id: 0, __v: 0 }).lean();
 
         res.status(200).json(goods);
     } catch (error) {

@@ -18,6 +18,6 @@ export default mongoose.model<IUser>('User', UserSchema);
 export interface IUser extends Document {
     email: string;
     password: string;
-    dormitory: number;
+    dormitory_id: number;
     goods: number[];
 }

@@ -4,7 +4,8 @@
 ### POST /user/signup
 req {
     email: string,
-    password: string
+    password: string,
+    dormitory_id: number
 }
 
 ### POST /user/signin
@@ -32,7 +33,7 @@ req {
     owner_id: number,
 }
 
-### GET /good
+### GET /good?owner_id=""&name=""&change=""
 res {
     [
       {
