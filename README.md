@@ -15,7 +15,8 @@ req {
 }
 
 res {
-    token: string
+    token: string,
+    user_id: number
 }
 
 ## Общежития
