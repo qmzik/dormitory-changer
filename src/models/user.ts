@@ -14,8 +14,8 @@ UserSchema.plugin(AutoIncrement, { inc_field: 'user_id' });
 
 export default mongoose.model<IUser>('User', UserSchema);
 
-
 export interface IUser extends Document {
+    user_id: number;
     email: string;
     password: string;
     dormitory_id: number;
