@@ -1,16 +1,21 @@
 import express, { Request, Response, NextFunction } from 'express';
 import User from '../models/user';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const app = express();
 
 app.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = new User(req.body);
+        const salt = await bcrypt.genSalt();
+        const password = await bcrypt.hash(req.body.password, salt);
+        const { email, dormitory_id } = req.body;
+
+        const user = new User({ email, password, dormitory_id });
         await user.save();
+
         res.status(200).end();
     } catch (error) {
-
         next(error);
     }
 });
@@ -22,6 +27,11 @@ app.post('/signin', async (req: Request, res: Response, next: NextFunction) => {
             res.status(404).json({ message: 'User was not found' });
 
             return;
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
+        if (!isPasswordCorrect) {
+            res.status(403).json({ message: 'Wrong credentials' });
         }
 
         const { user_id } = user;
