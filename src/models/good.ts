@@ -5,8 +5,8 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 const GoodSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
-    change: { type: String, required: true },
     ownerId: { type: Number, required: true },
+    change: String,
     comments: [Number],
 });
 
