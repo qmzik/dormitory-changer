@@ -6,18 +6,18 @@ const GoodSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     change: { type: String, required: true },
-    owner_id: { type: Number, required: true },
+    ownerId: { type: Number, required: true },
     comments: [Number],
 });
 
 GoodSchema.plugin(validator);
-GoodSchema.plugin(AutoIncrement, { inc_field: 'good_id' });
+GoodSchema.plugin(AutoIncrement, { inc_field: 'goodId' });
 
 export default mongoose.model<IGood>('Good', GoodSchema);
 
 export interface IGood extends Document {
     name: string;
     description: string;
-    change: string,
-    comments: number[],
+    change: string;
+    comments: number[];
 }

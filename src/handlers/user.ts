@@ -9,9 +9,9 @@ app.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const salt = await bcrypt.genSalt();
         const password = await bcrypt.hash(req.body.password, salt);
-        const { email, dormitory_id } = req.body;
+        const { email, dormitoryId } = req.body;
 
-        const user = new User({ email, password, dormitory_id });
+        const user = new User({ email, password, dormitoryId });
         await user.save();
 
         res.status(200).end();

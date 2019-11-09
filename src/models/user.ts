@@ -5,19 +5,19 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    dormitory_id: { type: Number, required: true },
+    dormitoryId: { type: Number, required: true },
     goods: [Number],
 });
 
 UserSchema.plugin(validator);
-UserSchema.plugin(AutoIncrement, { inc_field: 'user_id' });
+UserSchema.plugin(AutoIncrement, { inc_field: 'userId' });
 
 export default mongoose.model<IUser>('User', UserSchema);
 
 export interface IUser extends Document {
-    user_id: number;
+    userId: number;
     email: string;
     password: string;
-    dormitory_id: number;
+    dormitoryId: number;
     goods: number[];
 }

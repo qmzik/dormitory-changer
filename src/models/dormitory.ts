@@ -3,11 +3,11 @@ import validator from 'mongoose-unique-validator';
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const DormitorySchema = new Schema({
-    name: { type: String, required: true }
+    name: { type: String, required: true },
 });
 
 DormitorySchema.plugin(validator);
-DormitorySchema.plugin(AutoIncrement, { inc_field: 'dormitory_id' });
+DormitorySchema.plugin(AutoIncrement, { inc_field: 'dormitoryId' });
 
 export default mongoose.model<IDormitory>('Dormitory', DormitorySchema);
 
