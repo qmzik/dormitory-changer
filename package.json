@@ -17,6 +17,7 @@
     "@types/jsonwebtoken": "^8.3.4",
     "@types/mongoose-sequence": "^3.0.3",
     "@types/mongoose-unique-validator": "^1.0.2",
+    "@types/socket.io": "^2.1.4",
     "dotenv": "^8.1.0",
     "nodemon": "^1.18.3",
     "tslint": "^5.11.0",
@@ -33,6 +34,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.13",
     "mongoose-sequence": "^5.2.2",
-    "mongoose-unique-validator": "^2.0.3"
+    "mongoose-unique-validator": "^2.0.3",
+    "socket.io": "^2.3.0"
   }
 }
