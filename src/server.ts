@@ -33,11 +33,8 @@ io.use((socket, next) => {
 io.on('connection', (socket) => {
     const socketId = socket.id;
     const userId = socket.handshake.query.userId;
-    const successMsg: ISocketMessage = { status: 200, message: 'Connected successfully' };
 
     connectedUsers.set(userId, socketId);
-
-    io.to(socketId).emit('init', successMsg);
 
     socket.on('msg', (event: IMessage) => {
         io.to(connectedUsers.get(event.to)).emit('msg', { status: 200, message: 'Sending message', payload: event });
@@ -49,6 +46,7 @@ io.on('connection', (socket) => {
 });
 
 interface IMessage {
+    from: number;
     to: number;
     msg: string;
 }
