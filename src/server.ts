@@ -37,7 +37,9 @@ io.on('connection', (socket) => {
     connectedUsers.set(userId, socketId);
 
     socket.on('msg', (event: IMessage) => {
-        io.to(connectedUsers.get(event.to)).emit('msg', { status: 200, message: 'Sending message', payload: event });
+        const msg: ISocketMessage = { status: 200, message: 'Sending message', payload: event };
+        
+        io.to(connectedUsers.get(event.to)).emit('msg', msg);
     });
 
     socket.on('disconnect', () => {
