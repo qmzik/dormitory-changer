@@ -10,7 +10,10 @@ import jwt from 'jsonwebtoken';
 
 env.config();
 
-mongoose.connect(`mongodb+srv://${process.env.LOGIN}:${process.env.PASSWORD}@booker-azmmz.mongodb.net/booker?retryWrites=true&w=majority`, { useNewUrlParser: true, useFindAndModify: false });
+mongoose.connect(`mongodb+srv://${process.env.LOGIN}:${process.env.PASSWORD}@booker-azmmz.mongodb.net/booker?retryWrites=true&w=majority`, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+});
 
 const app = express();
 
