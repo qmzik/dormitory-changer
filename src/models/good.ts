@@ -16,6 +16,7 @@ GoodSchema.plugin(AutoIncrement, { inc_field: 'goodId' });
 export default mongoose.model<IGood>('Good', GoodSchema);
 
 export interface IGood extends Document {
+    goodId: number;
     name: string;
     description: string;
     change: string;

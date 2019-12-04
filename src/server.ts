@@ -4,7 +4,7 @@ import socketIo from 'socket.io';
 import jwt from 'jsonwebtoken';
 import HttpError from './HttpError';
 
-const port = 8000;
+const port = 9000;
 
 const server = http.createServer(app);
 
@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
 
     socket.on('msg', (event: IMessage) => {
         const msg: ISocketMessage = { status: 200, message: 'Sending message', payload: event };
-        
+
         io.to(connectedUsers.get(event.to)).emit('msg', msg);
     });
 
