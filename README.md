@@ -37,11 +37,25 @@ req {
 ### GET /good?owner_id=""&name=""&change=""
 res {
     [
-      {
-         name: string,
-         description: string,
-         change: string,
-         owner_id: number,
-      }
+        {    
+             goodId: number,
+             name: string,
+             description: string,
+             change: string,
+             ownerId: number
+        }
     ]
+}
+
+### PATCH /good
+req {
+     goodId: number,
+     name?: string,
+     description?: string,
+     change?: string,
+}
+
+### DELETE /good
+req {
+    goodId: number
 }

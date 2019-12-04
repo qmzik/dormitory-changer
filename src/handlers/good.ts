@@ -39,20 +39,8 @@ app.patch('/', async (req: Request, res: Response, next: NextFunction) => {
 
 app.delete('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { goodId, userId } = req.body;
-        const user: IUser = await User.findOne({ userId }, { _id: 0, __v: 0 }).lean();
+        const { goodId } = req.body;
 
-        if (user === null) {
-            res.status(404).json({ message: `User with id ${userId} was not found` });
-
-            return;
-        }
-
-        if (user.goods.indexOf(goodId) === -1) {
-            res.status(404).json({ message: `User with id ${userId} does not have a good with id ${goodId}` });
-
-            return;
-        }
         await Good.findOneAndDelete({ goodId });
 
         res.status(200).end();
