@@ -31,7 +31,7 @@ app.patch('/', async (req: Request, res: Response, next: NextFunction) => {
 
         Good.findOneAndUpdate({ goodId: good.goodId }, good);
 
-        res.status(200);
+        res.status(200).end();
     } catch (error) {
         next(error);
     }
