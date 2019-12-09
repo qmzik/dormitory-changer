@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
 import Good, { IGood } from '../models/good';
-import User, { IUser } from '../models/user';
 
 const app = express();
 

@@ -2,7 +2,6 @@ import http from 'http';
 import app from './app';
 import socketIo from 'socket.io';
 import jwt from 'jsonwebtoken';
-import HttpError from './HttpError';
 
 const port = 9000;
 
