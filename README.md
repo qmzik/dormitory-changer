@@ -5,7 +5,7 @@
 req {
     email: string,
     password: string,
-    dormitory_id: number
+    dormitoryId: number
 }
 
 ### POST /user/signin
@@ -16,13 +16,13 @@ req {
 
 res {
     token: string,
-    user_id: number
+    userId: number
 }
 
 ## Общежития
 ### GET /dormitory
 res {
-    [{ name: string, dormitory_id: number }]
+    [{ name: string, dormitoryId: number }]
 }
 
 ## Вещи для обмена
@@ -31,10 +31,10 @@ req {
     name: string,
     description: string,
     change: string,
-    owner_id: number,
+    ownerId: number,
 }
 
-### GET /good?owner_id=""&name=""&change=""
+### GET /good?ownerId&name&change
 res {
     [
         {    
@@ -45,6 +45,21 @@ res {
              ownerId: number
         }
     ]
+}
+
+### GET /good/find?q=test&limit=10
+#### caption: q indexes name, description and change
+#### caption: limit default is 20
+res {
+        [
+            {    
+                 goodId: number,
+                 name: string,
+                 description: string,
+                 change: string,
+                 ownerId: number
+            }
+        ]
 }
 
 ### PATCH /good
