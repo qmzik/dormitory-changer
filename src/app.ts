@@ -4,6 +4,7 @@ import HttpError from './HttpError';
 import companyHandler from './handlers/good';
 import userHandler from './handlers/user';
 import dormitoryHandler from './handlers/dormitory';
+import commentHandler from './handlers/comment';
 import mongoose from 'mongoose';
 import env from 'dotenv';
 import jwt from 'jsonwebtoken';
@@ -47,6 +48,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     }
 });
 app.use('/good', companyHandler);
+
+app.use('/comment', commentHandler);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     const error = new HttpError('Not found');
