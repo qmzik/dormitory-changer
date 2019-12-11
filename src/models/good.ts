@@ -8,6 +8,7 @@ const GoodSchema = new Schema({
     ownerId: { type: Number, required: true },
     change: String,
     comments: [Number],
+    urgently: { type: Boolean, default: false },
 });
 
 GoodSchema.plugin(validator);
@@ -19,6 +20,7 @@ export interface IGood extends Document {
     goodId: number;
     name: string;
     description: string;
-    change: string;
     comments: number[];
+    change?: string;
+    urgently?: boolean;
 }

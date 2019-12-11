@@ -32,6 +32,7 @@ req {
     description: string,
     change: string,
     ownerId: number,
+    urgently?: boolean,
 }
 
 ### GET /good?ownerId&name&change
@@ -42,7 +43,8 @@ res {
              name: string,
              description: string,
              change: string,
-             ownerId: number
+             ownerId: number,
+             urgently: boolean,
         }
     ]
 }
@@ -57,7 +59,8 @@ res {
                  name: string,
                  description: string,
                  change: string,
-                 ownerId: number
+                 ownerId: number,
+                 urgently: boolean
             }
         ]
 }

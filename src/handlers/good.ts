@@ -48,8 +48,9 @@ app.get('/find', async (req: Request, res: Response, next: NextFunction) => {
 app.patch('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const good: IGood = req.body;
+        console.log(good);
 
-        Good.findOneAndUpdate({ goodId: good.goodId }, good);
+        await Good.findOneAndUpdate({ goodId: good.goodId }, good);
 
         res.status(200).end();
     } catch (error) {
