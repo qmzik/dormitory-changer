@@ -44,9 +44,9 @@ app.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
 app.patch('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const comment: IComment = req.body;
+        const { content, commentId }: IComment = req.body;
 
-        await Comment.findOneAndUpdate({ commentId: comment.commentId }, comment);
+        await Comment.findOneAndUpdate({ commentId }, { content });
 
         res.status(200).end();
     } catch (error) {

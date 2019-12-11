@@ -77,3 +77,36 @@ req {
 req {
     goodId: number
 }
+
+## Комментарии
+### GET /comments
+req {
+    commentId: number;
+    ownerId: number;
+    goodId: number;
+}
+
+res {
+    commentId: number;
+    ownerId: number;
+    goodId: number;
+    content: string;
+    timestamp: number;
+}
+
+### POST /comments
+req {
+    ownerId: number;
+    goodId: number;
+    content: string;
+}
+
+### PATCH /comments
+req {
+    content: string;
+}
+
+### DELETE /comments
+req {
+    commentId: number;
+}
