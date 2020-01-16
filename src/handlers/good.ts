@@ -6,6 +6,7 @@ import { mongoURI } from '../consts/config';
 import mongoose from 'mongoose';
 import Grid from 'gridfs-stream';
 import { Grid as GridType } from '@types/gridfs-stream';
+import {ICountFilter} from '../types';
 
 const conn = mongoose.createConnection(mongoURI, { useNewUrlParser: true });
 
@@ -46,7 +47,8 @@ app.post('/', upload.single('picture'), async (req: Request, res: Response, next
 
 app.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const goods: IGood[] = await Good.find(req.query, { _id: 0, __v: 0 }).lean();
+        const { count, offset }: ICountFilter = req.query;
+        const goods: IGood[] = await Good.find(req.query, { _id: 0, __v: 0 }).limit(checkPositiveNumber(count) ? count : DEFAULT_LIMIT).skip(checkPositiveNumber(offset) ? offset : 0).lean();
 
         res.status(200).json(goods);
     } catch (error) {
@@ -79,7 +81,7 @@ app.get('/picture', async (req: Request, res: Response, next: NextFunction) => {
 
 app.get('/find', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { q, limit } = req.query;
+        const { q, count, offset } = req.query;
         const findString = q || '';
 
         const goods: IGood[] = await Good.find({
@@ -88,7 +90,7 @@ app.get('/find', async (req: Request, res: Response, next: NextFunction) => {
                 { description: { $regex: findString } },
                 { change: { $regex: findString } },
             ],
-        }).limit(checkLimit(limit) ? limit : DEFAULT_LIMIT).lean();
+        }).limit(checkPositiveNumber(count) ? count : DEFAULT_LIMIT).skip(checkPositiveNumber(offset) ? offset : 0).lean();
 
         res.status(200).json(goods);
     } catch (error) {
@@ -120,8 +122,8 @@ app.delete('/', async (req: Request, res: Response, next: NextFunction) => {
     }
 });
 
-function checkLimit(limit: any): boolean {
-    return typeof limit === 'number' && limit > 0;
+function checkPositiveNumber(limit: any): boolean {
+    return typeof limit === 'number' && limit >= 0;
 }
 
 export default app;

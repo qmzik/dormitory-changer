@@ -6,6 +6,7 @@ const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     dormitoryId: { type: Number, required: true },
+    name: { type: String },
     goods: [Number],
 });
 
@@ -20,4 +21,5 @@ export interface IUser extends Document {
     password: string;
     dormitoryId: number;
     goods: number[];
+    name?: string;
 }

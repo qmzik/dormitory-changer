@@ -34,10 +34,11 @@ app.post('/signin', async (req: Request, res: Response, next: NextFunction) => {
             res.status(403).json({ message: 'Wrong credentials' });
         }
 
-        const { userId, email, dormitoryId, goods } = user;
+        const { userId, email, dormitoryId, goods, name } = user;
         const token = jwt.sign({ data: user.email }, process.env.SECRET, { expiresIn: '1h' });
 
-        res.status(200).json({ token, user: { userId, email, dormitoryId, goods } });
+
+        res.status(200).json({ token, user: { userId, email, dormitoryId, goods, name: name ? name : email } });
     } catch (error) {
         next(error);
     }
