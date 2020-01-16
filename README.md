@@ -3,6 +3,7 @@
 ## Пользователи
 ### POST /user/signup
 req {
+    name?: string
     email: string,
     password: string,
     dormitoryId: number
@@ -17,6 +18,7 @@ req {
 res {
     token: string,
     userId: number
+    name: string
 }
 
 ## Общежития
@@ -36,7 +38,7 @@ req {
     urgently?: boolean,
 }
 
-### GET /good?ownerId&name&change
+### GET /good?ownerId&name&change&count&offset
 res {
     [
         {    
@@ -54,9 +56,9 @@ res {
 `Content-type: form-data`  
 res - form-data
 
-### GET /good/find?q=test&limit=10
+### GET /good/find?q=test&count&offset
 #### caption: q indexes name, description and change
-#### caption: limit default is 20
+#### caption: count default is 20
 res {
         [
             {    
