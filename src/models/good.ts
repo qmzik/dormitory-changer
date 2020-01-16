@@ -9,6 +9,7 @@ const GoodSchema = new Schema({
     change: String,
     comments: [Number],
     urgently: { type: Boolean, default: false },
+    pictureId: { type: Schema.Types.ObjectId },
 });
 
 GoodSchema.plugin(validator);
@@ -23,4 +24,5 @@ export interface IGood extends Document {
     comments: number[];
     change?: string;
     urgently?: boolean;
+    pictureId?: string;
 }

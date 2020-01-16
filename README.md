@@ -27,6 +27,7 @@ res {
 
 ## Вещи для обмена
 ### POST /good
+`Content-type: form-data`  
 req {
     name: string,
     description: string,
@@ -48,6 +49,10 @@ res {
         }
     ]
 }
+
+### GET /good/picture?goodId
+`Content-type: form-data`  
+res - form-data
 
 ### GET /good/find?q=test&limit=10
 #### caption: q indexes name, description and change

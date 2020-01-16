@@ -6,12 +6,10 @@ import userHandler from './handlers/user';
 import dormitoryHandler from './handlers/dormitory';
 import commentHandler from './handlers/comment';
 import mongoose from 'mongoose';
-import env from 'dotenv';
 import jwt from 'jsonwebtoken';
+import { mongoURI } from './consts/config';
 
-env.config();
-
-mongoose.connect(`mongodb+srv://${process.env.LOGIN}:${process.env.PASSWORD}@booker-azmmz.mongodb.net/booker?retryWrites=true&w=majority`, {
+mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useFindAndModify: false,
 });
