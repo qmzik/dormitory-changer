@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
     const socketId = socket.id;
     const userId = socket.handshake.query.userId;
 
-    connectedUsers.set(userId, socketId);
+    connectedUsers.set(Number(userId), socketId);
 
     socket.on('msg', (event: IMessage) => {
         const msg: ISocketMessage = { status: 200, message: 'Sending message', payload: event };
