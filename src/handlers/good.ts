@@ -8,6 +8,7 @@ import Grid from 'gridfs-stream';
 import { Grid as GridType } from '@types/gridfs-stream';
 import {ICountFilter} from '../types';
 import Agenda from 'agenda';
+import {prepareDataObject} from '../utils';
 
 const conn = mongoose.createConnection(mongoURI, { useNewUrlParser: true });
 
@@ -67,8 +68,9 @@ app.post('/', upload.single('picture'), async (req: Request, res: Response, next
 app.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { count, offset }: ICountFilter = req.query;
-        const goods: IGood[] = await Good.find(req.query, { _id: 0, __v: 0 }).sort({ urgently: -1 })
-            .limit(checkPositiveNumber(count) ? count : DEFAULT_LIMIT).skip(checkPositiveNumber(offset) ? offset : 0).lean();
+        const { ownerId, name, change } = req.query;
+        const goods: IGood[] = await Good.find(prepareDataObject({  ownerId, name, change }), { _id: 0, __v: 0 }).sort({ urgently: -1 })
+            .limit(checkPositiveNumber(+count) ? +count : DEFAULT_LIMIT).skip(checkPositiveNumber(+offset) ? +offset : 0).lean();
 
         res.status(200).json(goods);
     } catch (error) {
@@ -79,7 +81,7 @@ app.get('/', async (req: Request, res: Response, next: NextFunction) => {
 app.get('/picture', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { goodId } = req.query;
-        const good = await Good.findOne({ goodId }, { _id: 0, __v: 0 }).lean();
+        const good = await Good.findOne(prepareDataObject({ goodId }), { _id: 0, __v: 0 }).lean();
 
         if (good === null) {
             return res.status(404).json({ error: `Good was not found by goodId ${goodId}` });

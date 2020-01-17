@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import Comment, { IComment } from '../models/comment';
 import Good, { IGood } from '../models/good';
+import {checkRights, prepareDataObject} from '../utils';
 
 const app = express();
 
@@ -9,8 +10,10 @@ app.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
         const { goodId, ownerId, content  } = req.body;
 
+        await checkRights(req, ownerId);
+
         // @ts-ignore
-        const good: IGood = await Good.findOne({ goodId });
+        const good: IGood = await Good.findOne(prepareDataObject({ goodId }));
         console.log(good);
 
         if (!good) {
@@ -34,7 +37,7 @@ app.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
 app.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const comments: IComment[] = await Comment.find(req.query, { _id: 0, __v: 0 }).lean();
+        const comments: IComment[] = await Comment.find(prepareDataObject(req.query), { _id: 0, __v: 0 }).lean();
 
         res.status(200).json(comments);
     } catch (error) {
@@ -46,7 +49,7 @@ app.patch('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { content, commentId }: IComment = req.body;
 
-        await Comment.findOneAndUpdate({ commentId }, { content });
+        await Comment.findOneAndUpdate(prepareDataObject({ commentId }), { content });
 
         res.status(200).end();
     } catch (error) {
@@ -58,7 +61,7 @@ app.delete('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { commentId } = req.body;
 
-        await Comment.findOneAndDelete({ commentId });
+        await Comment.findOneAndDelete(prepareDataObject({ commentId }));
 
         res.status(200).end();
     } catch (error) {

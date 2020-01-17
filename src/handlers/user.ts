@@ -35,7 +35,7 @@ app.post('/signin', async (req: Request, res: Response, next: NextFunction) => {
         }
 
         const { userId, email, dormitoryId, goods, name } = user;
-        const token = jwt.sign({ data: user.email }, process.env.SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ data: userId }, process.env.SECRET, { expiresIn: '1h' });
 
 
         res.status(200).json({ token, user: { userId, email, dormitoryId, goods, name: name ? name : email } });
