@@ -5,6 +5,7 @@ import companyHandler from './handlers/good';
 import userHandler from './handlers/user';
 import dormitoryHandler from './handlers/dormitory';
 import commentHandler from './handlers/comment';
+import messageHandler from './handlers/message';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import { mongoURI } from './consts/config';
@@ -53,6 +54,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/good', companyHandler);
 
 app.use('/comment', commentHandler);
+
+app.use('/message', messageHandler);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     const error = new HttpError('Not found');

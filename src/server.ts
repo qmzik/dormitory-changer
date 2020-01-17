@@ -2,6 +2,7 @@ import http from 'http';
 import app from './app';
 import socketIo from 'socket.io';
 import jwt from 'jsonwebtoken';
+import {createMessage} from './handlers/message';
 
 const port = 9000;
 
@@ -36,7 +37,10 @@ io.on('connection', (socket) => {
     connectedUsers.set(Number(userId), socketId);
 
     socket.on('msg', (event: IMessage) => {
-        const msg: ISocketMessage = { status: 200, message: 'Sending message', payload: event };
+        const msg: ISocketMessage<IMessage> = { status: 200, message: 'Sending message', payload: event };
+        const { from, to, content } = event;
+
+        createMessage(from, to, content);
 
         io.to(connectedUsers.get(event.to)).emit('msg', msg);
     });
@@ -49,11 +53,11 @@ io.on('connection', (socket) => {
 interface IMessage {
     from: number;
     to: number;
-    msg: string;
+    content: string;
 }
 
-interface ISocketMessage {
+interface ISocketMessage<T> {
     status: number;
     message: string;
-    payload?: any;
+    payload?: T;
 }

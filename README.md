@@ -117,3 +117,13 @@ req {
 req {
     commentId: number;
 }
+
+## Сообщения
+### GET /message?ownerId=20&to=19&count&offset
+res {
+    ownerId: number;
+    to: number;
+    content: string;
+    timestamp: number;
+    messageId: number;
+}
