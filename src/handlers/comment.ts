@@ -7,14 +7,12 @@ const app = express();
 
 app.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-
         const { goodId, ownerId, content  } = req.body;
 
         await checkRights(req, ownerId);
 
         // @ts-ignore
         const good: IGood = await Good.findOne(prepareDataObject({ goodId }));
-        console.log(good);
 
         if (!good) {
             res.status(404).json({ message: `Good with id ${goodId} was not found` });
@@ -37,7 +35,9 @@ app.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
 app.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const comments: IComment[] = await Comment.find(prepareDataObject(req.query), { _id: 0, __v: 0 }).lean();
+        const { goodId, ownerId, commentId } = req.query;
+        const data = prepareDataObject({ goodId, ownerId, commentId });
+        const comments: IComment[] = await Comment.find(data, { _id: 0, __v: 0 }).lean();
 
         res.status(200).json(comments);
     } catch (error) {

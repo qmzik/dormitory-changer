@@ -16,7 +16,7 @@ export const prepareDataObject = (obj: object): object => {
     Object.entries(obj).forEach(([key, val: any]) => {
         if (val !== undefined) {
             // @ts-ignore
-            result[key] = val;
+            result[key] = isNaN(val) ? val : Number(val);
         }
     });
 
